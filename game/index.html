@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lanternkeep</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%27%68%74%74%70%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox=%270%200%2032%2032%27%3E%3Crect%20width=%2732%27%20height=%2732%27%20rx=%277%27%20fill=%27%2310152e%27/%3E%3Cpath%20d=%27M8%2027h16L21%207h-2V4h-6v3h-2z%27%20fill=%27%23d8c69d%27/%3E%3Crect%20x=%2712%27%20y=%2710%27%20width=%278%27%20height=%276%27%20fill=%27%23ffca69%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main id="shell">
+    <header id="hud">
+      <div class="brand">LANTERNKEEP <small>THE LAST LIGHT</small></div>
+      <div class="stat">GOLD <b id="gold">160</b></div><div class="stat">KEEP <b id="lives">20</b></div>
+      <div class="stat">WAVE <b id="wave">0 / 12</b></div><div class="stat">SCORE <b id="score">0</b></div>
+      <div class="stat">THREATS <b id="remaining">0</b></div>
+      <button id="pauseBtn">PAUSE</button><button id="speedBtn">1×</button><button id="muteBtn">SOUND</button>
+    </header>
+    <section id="stage">
+      <canvas id="board" width="1280" height="720" aria-label="Lanternkeep game board"></canvas>
+      <div id="banner"></div>
+      <div id="overlay"></div>
+      <div id="selection"></div>
+    </section>
+    <footer id="buildbar"><div class="bar-label">BUILD A BEACON <span>Choose a light, then place it on clear grass</span></div><div id="cards"></div><div id="wave-control"><div id="preview"></div><button id="waveBtn">START WAVE <kbd>SPACE</kbd></button></div></footer>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
