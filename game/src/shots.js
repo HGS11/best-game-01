@@ -1,0 +1,10 @@
+import {spawn} from './enemies.js';
+import {place,upgrade} from './towers.js';
+export function shotMode(){let q=new URLSearchParams(location.search),scene=q.get('shot');return ['title','play','boss','victory'].includes(scene)?{scene,seed:Number(q.get('seed')||1)}:null}
+export function setupShot(g,scene){g.state=scene==='title'?'title':scene==='victory'?'victory':'wave';if(scene==='title'){g.ui.title(Math.max(0,Number(localStorage.getItem('lkBest')||0)),()=>{},Math.max(0,Number(localStorage.getItem('lkBestWave')||0)));return}g.wavesCleared=scene==='victory'?12:scene==='boss'?11:4;g.waveLeaks=0;
+let showGold=scene==='boss'?92:scene==='victory'?248:184;g.gold=3000;g.lives=scene==='boss'?6:scene==='victory'?17:18;g.wave=scene==='boss'?12:scene==='victory'?12:5;g.score=scene==='boss'?9750:scene==='victory'?15480:5620;g.kills=scene==='boss'?73:scene==='victory'?121:48;g.earned=scene==='boss'?1160:scene==='victory'?2120:780;
+let placements=scene==='boss'?[['ember',7,4],['frost',9,3],['arc',6,6],['mortar',10,4],['ember',8,6],['frost',6,3],['arc',9,4]]:[['ember',1,2],['frost',4,6],['arc',7,1],['mortar',10,7],['ember',12,3],['frost',6,3],['arc',9,7],['mortar',13,1]];
+for(let p of placements)place(g,p[0],p[1],p[2]);for(let i=0;i<g.towers.length;i++)if(i%2===0||scene==='boss')upgrade(g,g.towers[i]);g.gold=showGold;
+let kinds=scene==='boss'?['gloomlord','husk','wisp','skulk','husk','wisp']:['skulk','husk','wisp','skulk','husk','wisp','skulk','skulk','wisp','husk','skulk','wisp','husk','skulk','wisp'];
+for(let i=0;i<kinds.length;i++){let kind=kinds[i],e=spawn(g,kind,kind==='gloomlord'?.78:1.15);e.segment=kind==='gloomlord'?5:3+(i%3);e.progress=kind==='gloomlord'?86:28+(i%5)*39;if(kind==='gloomlord')e.hp=e.maxHp*.67}
+g.remaining=g.enemies.length;g.queue=[];if(scene==='boss')g.ui.banner('THE GLOOMLORD · WAVE 12');if(scene==='victory'){g.stars=3;g.best=Math.max(0,Number(localStorage.getItem('lkBest')||0)||0,g.score,g.score+g.lives*40);g.bestWave=Math.max(0,Number(localStorage.getItem('lkBestWave')||0)||0,12);g.ui.end(g,true)}}

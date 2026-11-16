@@ -1,0 +1,3 @@
+let ctx=null,muted=false;
+export function setMuted(v){muted=v}
+export function sound(name){if(muted)return;try{ctx=ctx||new AudioContext();if(ctx.state==='suspended')ctx.resume();let o=ctx.createOscillator(),g=ctx.createGain(),now=ctx.currentTime;let map={place:[180,.09],kill:[640,.08],leak:[95,.3],wave:[220,.45],upgrade:[520,.2],error:[100,.12],fire:[360,.045],sell:[280,.12]};let a=map[name]||[330,.1];o.type=name==='error'?'sawtooth':'sine';o.frequency.setValueAtTime(a[0],now);o.frequency.exponentialRampToValueAtTime(Math.max(40,a[0]*.65),now+a[1]);g.gain.setValueAtTime(.07,now);g.gain.exponentialRampToValueAtTime(.001,now+a[1]);o.connect(g);g.connect(ctx.destination);o.start();o.stop(now+a[1])}catch(e){}}
